@@ -19,13 +19,24 @@ class PharmacyService {
       const phoneDigits = getPhoneDigits(phoneNumber);
       const normalizedInputName = normalizeName(name);
 
+      console.log('🔍 Checking pharmacy match:');
+      console.log('   Phone digits:', phoneDigits);
+      console.log('   Zipcode:', address.zipcode);
+      console.log('   State:', address.state);
+      console.log('   Address:', address.streetAddress);
+
       // Get all records that match zipcode (narrow down the search)
       const { data, error } = await supabase
         .from('pharmacy')
         .select('*')
         .eq('zip_code', address.zipcode);
 
+      console.log('📊 Supabase query result:');
+      console.log('   Error:', error);
+      console.log('   Records found:', data?.length || 0);
+      
       if (error) {
+        console.error('❌ Supabase error:', error);
         throw new Error(`Database query failed: ${error.message}`);
       }
 
@@ -53,6 +64,17 @@ class PharmacyService {
         const nameMatch = normalizedDbName.includes(normalizedInputName) || 
                          normalizedInputName.includes(normalizedDbName);
 
+        console.log(`   Checking record ID ${item.id}:`, {
+          phoneMatch,
+          addressMatch,
+          stateMatch,
+          nameMatch,
+          dbPhone: item.phone_number,
+          dbAddress: item.address,
+          dbState: item.state,
+          dbName: item.name
+        });
+
         // Strong Match Case 1: phone + zipcode + address + state (all 4 must match)
         const case1 = phoneMatch && addressMatch && stateMatch;
         
@@ -61,6 +83,8 @@ class PharmacyService {
 
         return case1 || case2;
       });
+
+      console.log('✅ Strong matches found:', strongMatches.length);
 
       if (strongMatches.length > 0) {
         return {

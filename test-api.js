@@ -55,11 +55,11 @@ const tests = [
     method: 'POST',
     path: '/api/pharmacy/check',
     data: {
-      name: 'WESTMORELAND PHARMACY #1',
-      phoneNumber: '+12146998072',
+      name: 'TACKETT COMPOUNDING PHARMACY',
+      phoneNumber: '+18174417046',
       address: {
-        streetAddress: '115 WEST GRAND ST',
-        zipcode: '75491',
+        streetAddress: '3500 FORT WORTH HWY',
+        zipcode: '76087',
         state: 'TX',
       },
     },

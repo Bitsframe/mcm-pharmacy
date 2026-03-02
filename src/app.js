@@ -20,7 +20,14 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Health check
 app.get('/health', (req, res) => {
+  console.log('✅ Health check requested');
   res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// Request logger
+app.use((req, res, next) => {
+  console.log(`📥 ${req.method} ${req.path}`);
+  next();
 });
 
 // API routes

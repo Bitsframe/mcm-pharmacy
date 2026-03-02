@@ -3,6 +3,11 @@ const router = express.Router();
 const pharmacyController = require('../controllers/pharmacyController');
 const { validatePharmacyRegistration } = require('../middleware/pharmacyValidator');
 
-router.post('/pharmacy/check', validatePharmacyRegistration, pharmacyController.checkPharmacy);
+console.log('🛣️  Pharmacy routes loaded');
+
+router.post('/pharmacy/check', (req, res, next) => {
+  console.log('🚀 Route: /api/pharmacy/check hit');
+  next();
+}, validatePharmacyRegistration, pharmacyController.checkPharmacy);
 
 module.exports = router;
