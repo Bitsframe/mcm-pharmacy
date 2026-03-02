@@ -1,14 +1,18 @@
 const http = require('http');
+const https = require('https');
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://mcm-pharmacy-production.up.railway.app';
 
 // Helper function to make HTTP requests
 function makeRequest(method, path, data = null) {
   return new Promise((resolve, reject) => {
     const url = new URL(path, BASE_URL);
+    const isHttps = url.protocol === 'https:';
+    const httpModule = isHttps ? https : http;
+    
     const options = {
       hostname: url.hostname,
-      port: url.port,
+      port: url.port || (isHttps ? 443 : 80),
       path: url.pathname,
       method: method,
       headers: {
@@ -16,7 +20,7 @@ function makeRequest(method, path, data = null) {
       },
     };
 
-    const req = http.request(options, (res) => {
+    const req = httpModule.request(options, (res) => {
       let body = '';
       res.on('data', (chunk) => (body += chunk));
       res.on('end', () => {
@@ -51,11 +55,11 @@ const tests = [
     method: 'POST',
     path: '/api/pharmacy/check',
     data: {
-      name: 'AVITA PHARMACY 1034',
-      phoneNumber: '(512) 213-4030',
+      name: 'WESTMORELAND PHARMACY #1',
+      phoneNumber: '+12146998072',
       address: {
-        streetAddress: '2800 S IH35 frontage ROAD SUITE 105',
-        zipcode: '78704',
+        streetAddress: '115 WEST GRAND ST',
+        zipcode: '75491',
         state: 'TX',
       },
     },

@@ -44,7 +44,8 @@ class PharmacyService {
         
         const addressMatch = item.address && 
           address.streetAddress && 
-          item.address.toLowerCase().includes(address.streetAddress.toLowerCase());
+          (item.address.toLowerCase().includes(address.streetAddress.toLowerCase()) ||
+           address.streetAddress.toLowerCase().includes(item.address.toLowerCase()));
         
         const stateMatch = item.state === address.state;
         
@@ -52,10 +53,10 @@ class PharmacyService {
         const nameMatch = normalizedDbName.includes(normalizedInputName) || 
                          normalizedInputName.includes(normalizedDbName);
 
-        // Strong Match Case 1: phone + zipcode + address + state
+        // Strong Match Case 1: phone + zipcode + address + state (all 4 must match)
         const case1 = phoneMatch && addressMatch && stateMatch;
         
-        // Strong Match Case 2: phone + zipcode + address + name
+        // Strong Match Case 2: phone + zipcode + address + name (all 4 must match)
         const case2 = phoneMatch && addressMatch && nameMatch;
 
         return case1 || case2;
