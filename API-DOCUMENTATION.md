@@ -55,6 +55,100 @@ Content-Type: application/json
 }
 ```
 
+---
+
+### 3. Get Address Suggestions (Smarty Integration)
+Get validated address suggestions using SmartyStreets API.
+
+**Endpoint:** `GET /api/address/suggestions`
+
+**Query Parameters:**
+- `search` (required): Partial or full address to search for (minimum 3 characters)
+
+**Example Request:**
+```bash
+curl "https://mcm-pharmacy-production.up.railway.app/api/address/suggestions?search=123%20Main%20St"
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "count": 5,
+  "suggestions": [
+    {
+      "streetLine": "123 Main St",
+      "secondary": "",
+      "city": "Austin",
+      "state": "TX",
+      "zipcode": "78701",
+      "fullAddress": "123 Main St, Austin, TX 78701",
+      "entries": 0
+    },
+    {
+      "streetLine": "123 Main St",
+      "secondary": "Apt 1",
+      "city": "Austin",
+      "state": "TX",
+      "zipcode": "78701",
+      "fullAddress": "123 Main St Apt 1, Austin, TX 78701",
+      "entries": 10
+    }
+  ]
+}
+```
+
+**Error Response (400):**
+```json
+{
+  "success": false,
+  "error": "Search parameter is required"
+}
+```
+
+**Field Descriptions:**
+- `streetLine`: Street address
+- `secondary`: Apartment/Suite number (if applicable)
+- `city`: City name
+- `state`: 2-letter state code
+- `zipcode`: 5-digit ZIP code
+- `fullAddress`: Complete formatted address
+- `entries`: Number of units at this address (0 = single unit)
+
+---
+
+### 4. Check Smarty API Status
+Check if Smarty API credentials are configured.
+
+**Endpoint:** `GET /api/address/status`
+
+**Example Request:**
+```bash
+curl https://mcm-pharmacy-production.up.railway.app/api/address/status
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "enabled": true,
+  "message": "Smarty API is configured and ready"
+}
+```
+
+**Not Configured Response (200):**
+```json
+{
+  "success": true,
+  "enabled": false,
+  "message": "Smarty API credentials not found"
+}
+```
+
+---
+
+## Field Descriptions (Pharmacy Check)
+
 **Field Descriptions:**
 
 | Field | Type | Required | Description | Format |

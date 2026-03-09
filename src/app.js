@@ -5,6 +5,8 @@ const { helmet, limiter, cors } = require('./middleware/security');
 const errorHandler = require('./middleware/errorHandler');
 const checkRoutes = require('./routes/checkRoutes');
 const pharmacyRoutes = require('./routes/pharmacyRoutes');
+const addressRoutes = require('./routes/addressRoutes');
+const nearestPharmacyRoutes = require('./routes/nearestPharmacyRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +35,8 @@ app.use((req, res, next) => {
 // API routes
 app.use('/api', checkRoutes);
 app.use('/api', pharmacyRoutes);
+app.use('/api', addressRoutes);
+app.use('/api', nearestPharmacyRoutes);
 
 // 404 handler
 app.use((req, res) => {

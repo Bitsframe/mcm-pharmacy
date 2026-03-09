@@ -34,8 +34,8 @@ After deployment starts, click on your project, then:
 ```
 NODE_ENV=production
 PORT=3000
-SUPABASE_URL=https://ivwviiupkkrrrtmnksyk.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2d3ZpaXVwa2tycnJ0bW5rc3lrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY2NjYxODUsImV4cCI6MjA4MjI0MjE4NX0.1VeDUVohh-UzykTrvTjaZ1lxg51rUaSw_ul4Wu4N0Pg
+SUPABASE_URL=https://kxtbfmlatysaxjzppmti.supabase.co
+SUPABASE_ANON_KEY=your_anon_key_here
 ALLOWED_ORIGINS=*
 ```
 
@@ -89,7 +89,7 @@ railway up
 ```bash
 railway variables set NODE_ENV=production
 railway variables set SUPABASE_URL=your_url
-railway variables set SUPABASE_ANON_KEY=your_key
+railway variables set SUPABASE_ANON_KEY=your_anon_key
 ```
 
 ## Monitoring
@@ -147,7 +147,7 @@ Railway will automatically redeploy!
 | NODE_ENV | Environment mode | production |
 | PORT | Server port (auto-set by Railway) | 3000 |
 | SUPABASE_URL | Your Supabase project URL | https://xxx.supabase.co |
-| SUPABASE_ANON_KEY | Supabase anonymous key | eyJhbG... |
+| SUPABASE_ANON_KEY | Supabase anon key | eyJhbG... |
 | ALLOWED_ORIGINS | CORS allowed origins | https://yourfrontend.com |
 
 ## Support
