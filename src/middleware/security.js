@@ -12,9 +12,10 @@ const limiter = rateLimit({
 });
 
 // CORS configuration
+const allowedOrigins = process.env.ALLOWED_ORIGINS || '*';
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
-  methods: ['GET', 'POST'],
+  origin: allowedOrigins === '*' ? true : allowedOrigins.split(',').map(origin => origin.trim()),
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
